@@ -5,15 +5,17 @@ Created on Tue May 11 12:14:46 2021
 @author: lauta
 """
 
+from requests import Session
 from eod.request_handler_class import RequestHandler
 
+
 class BulkMarketRequest(RequestHandler):
-    def __init__(self, api_key:str, timeout:int):
+    def __init__(self, api_key: str, timeout: int, session: Session):
         # base URL's of the API
         self.URL_BULK_MARKET = 'https://eodhistoricaldata.com/api/eod-bulk-last-day/'
-        super().__init__(api_key, timeout)
-    
-    def get_bulk_markets(self, exchange:str, **query_params):
+        super().__init__(api_key, timeout, session)
+
+    def get_bulk_markets(self, exchange: str, **query_params):
         """
         Easily download the data for the entire exchange for a particular day.
         It works for end-of-day historical data feed as well as for splits and

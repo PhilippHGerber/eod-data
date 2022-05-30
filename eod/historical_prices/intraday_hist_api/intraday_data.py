@@ -5,14 +5,16 @@ Created on Sat May  8 10:22:20 2021
 @author: lauta
 """
 
+from requests import Session
 from eod.request_handler_class import RequestHandler
 
+
 class IntradayStockData(RequestHandler):
-    def __init__(self, api_key:str, timeout:int):
+    def __init__(self, api_key: str, timeout: int, session: Session):
         self.URL_INTRADAY_STOCKS = 'https://eodhistoricaldata.com/api/intraday/'
-        super().__init__(api_key, timeout)
-        
-    def get_prices_intraday(self, symbol:str, **query_params):
+        super().__init__(api_key, timeout, session)
+
+    def get_prices_intraday(self, symbol: str, **query_params):
         """
         Get intraday historical stock price data.
 
@@ -30,4 +32,4 @@ class IntradayStockData(RequestHandler):
 
         """
         self.endpoint = self.URL_INTRADAY_STOCKS + symbol.upper()
-        return super().handle_request(self.endpoint, query_params) 
+        return super().handle_request(self.endpoint, query_params)

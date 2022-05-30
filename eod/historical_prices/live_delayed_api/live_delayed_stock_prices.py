@@ -5,15 +5,17 @@ Created on Thu May  6 12:13:08 2021
 @author: lauta
 """
 
+from requests import Session
 from eod.request_handler_class import RequestHandler
 
+
 class LiveStockPrices(RequestHandler):
-    
-    def __init__(self, api_key:str, timeout:int):
+
+    def __init__(self, api_key: str, timeout: int, session: Session):
         self.URL_LIVE_STOCKS = 'https://eodhistoricaldata.com/api/real-time/'
-        super().__init__(api_key, timeout)
-        
-    def get_prices_live(self, symbol:str, **query_params):
+        super().__init__(api_key, timeout, session)
+
+    def get_prices_live(self, symbol: str, **query_params):
         """
         Live (delayed) stock prices API for all subscribers of 'All-World', 
         'All World Extended', and 'ALL-IN-ONE' plans. With this API endpoint, 

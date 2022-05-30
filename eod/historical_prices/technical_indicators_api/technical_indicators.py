@@ -6,37 +6,38 @@ Created on Sat May  8 11:21:27 2021
 """
 
 from eod.request_handler_class import RequestHandler
+from requests import Session
+
 
 class TechnicalIndicatorsData(RequestHandler):
-    def __init__(self, api_key:str, timeout:int):
-        
+    def __init__(self, api_key: str, timeout: int, session: Session):
+
         self.URL_TA = 'https://eodhistoricaldata.com/api/technical/'
-        super().__init__(api_key, timeout)
-        
+        super().__init__(api_key, timeout, session)
+
         # list of available indicators
         self.ta_indicators = {
-                'splitadjusted':'Split Adjusted Data',
-                'avgvol':'Average Volume',
-                'avgvolccy':'Average Volume by Price',
-                'sma':'Simple Moving Average',
-                'ema':'Exponential Moving Average',
-                'wma':'Weighted Moving Average',
-                'volatility':'Variance between returns',
-                'stochastic':'Stochastic Technical Indicator',
-                'rsi':'Relative Strength Index',
-                'stddev':'Standard Deviation',
-                'stochrsi':'Stochastic Relative Strength Index',
-                'slope':'Linear Regression',
-                'dmi':'Directional Movement Index',
-                'adx':'Average Directional Movement Index',
-                'macd':'Moving Average Convergence/Divergence',
-                'atr':'Average True Range',
-                'cci':'Commodity Channel Index',
-                'sar':'Parabolic SAR'
-            }
+            'splitadjusted': 'Split Adjusted Data',
+            'avgvol': 'Average Volume',
+            'avgvolccy': 'Average Volume by Price',
+            'sma': 'Simple Moving Average',
+            'ema': 'Exponential Moving Average',
+            'wma': 'Weighted Moving Average',
+            'volatility': 'Variance between returns',
+            'stochastic': 'Stochastic Technical Indicator',
+            'rsi': 'Relative Strength Index',
+            'stddev': 'Standard Deviation',
+            'stochrsi': 'Stochastic Relative Strength Index',
+            'slope': 'Linear Regression',
+            'dmi': 'Directional Movement Index',
+            'adx': 'Average Directional Movement Index',
+            'macd': 'Moving Average Convergence/Divergence',
+            'atr': 'Average True Range',
+            'cci': 'Commodity Channel Index',
+            'sar': 'Parabolic SAR'
+        }
 
-        
-    def get_instrument_ta(self, symbol:str, **query_params):
+    def get_instrument_ta(self, symbol: str, **query_params):
         """
         Get the data related to the technical indicators
 
@@ -55,7 +56,7 @@ class TechnicalIndicatorsData(RequestHandler):
         """
         self.endpoint = self.URL_TA + symbol.upper()
         return super().handle_request(self.endpoint, query_params)
-    
+
     def get_indicator_name(self):
         """
         Get the full list of the available technical indicators

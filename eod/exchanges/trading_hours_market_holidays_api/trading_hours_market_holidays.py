@@ -5,14 +5,16 @@ Created on Tue May 11 15:19:56 2021
 @author: lauta
 """
 
+from requests import Session
 from eod.request_handler_class import RequestHandler
 
+
 class MarketHoursHolidays(RequestHandler):
-    def __init__(self, api_key:str, timeout:int):
+    def __init__(self, api_key: str, timeout: int, session: Session):
         self.URL_MARKET_HOURS = 'https://eodhistoricaldata.com/api/exchange-details/'
-        super().__init__(api_key, timeout)
-        
-    def get_exchange_details(self, exchange:str, **query_params):
+        super().__init__(api_key, timeout, session)
+
+    def get_exchange_details(self, exchange: str, **query_params):
         """
         Get metadata details for a specific exchange.
 

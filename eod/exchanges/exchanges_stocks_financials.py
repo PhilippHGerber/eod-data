@@ -6,18 +6,20 @@ Created on Tue May 11 12:13:31 2021
 """
 
 from eod.exchanges.bulk_eod_splits_divs_api import BulkMarketRequest
-from eod.exchanges.list_tickers_api import ExchangesAndTickers
-from eod.exchanges.trading_hours_market_holidays_api import MarketHoursHolidays
 from eod.exchanges.financial_news_api import FinancialNews
+from eod.exchanges.list_tickers_api import ExchangesAndTickers
 from eod.exchanges.search_instrument_api import SearchInstrument
 from eod.exchanges.stock_market_screener_api import StockMarketScreener
+from eod.exchanges.trading_hours_market_holidays_api import MarketHoursHolidays
+from requests import Session
+
 
 class ExchangesAndMarkets(BulkMarketRequest, ExchangesAndTickers, MarketHoursHolidays,
                           FinancialNews, SearchInstrument, StockMarketScreener):
-    def __init__(self, api_key:str, timeout:int):
-        BulkMarketRequest.__init__(self, api_key, timeout)
-        ExchangesAndTickers.__init__(self, api_key, timeout)
-        MarketHoursHolidays.__init__(self, api_key, timeout)
-        FinancialNews.__init__(self, api_key, timeout)
-        SearchInstrument.__init__(self, api_key, timeout)
-        StockMarketScreener.__init__(self, api_key, timeout)
+    def __init__(self, api_key: str, timeout: int, session: Session):
+        BulkMarketRequest.__init__(self, api_key, timeout, session)
+        ExchangesAndTickers.__init__(self, api_key, timeout, session)
+        MarketHoursHolidays.__init__(self, api_key, timeout, session)
+        FinancialNews.__init__(self, api_key, timeout, session)
+        SearchInstrument.__init__(self, api_key, timeout, session)
+        StockMarketScreener.__init__(self, api_key, timeout, session)

@@ -5,15 +5,17 @@ Created on Thu May  6 11:12:30 2021
 @author: lauta
 """
 
+from requests import Session
 from eod.request_handler_class import RequestHandler
 
+
 class StockPriceData(RequestHandler):
-    def __init__(self, api_key:str, timeout:int):
-        
+    def __init__(self, api_key: str, timeout: int, session: Session):
+
         self.URL_STOCK_PRICES = 'https://eodhistoricaldata.com/api/eod/'
-        super().__init__(api_key, timeout)
-        
-    def get_prices_eod(self, symbol:str, **query_params):
+        super().__init__(api_key, timeout, session)
+
+    def get_prices_eod(self, symbol: str, **query_params):
         """
         Get historical stocks, bonds and forex price data
 

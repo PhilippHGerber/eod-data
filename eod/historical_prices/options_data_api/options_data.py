@@ -6,13 +6,15 @@ Created on Sat May  8 10:41:50 2021
 """
 
 from eod.request_handler_class import RequestHandler
+from requests import Session
+
 
 class StockOptionsData(RequestHandler):
-    def __init__(self, api_key:str, timeout:int):
+    def __init__(self, api_key: str, timeout: int, session: Session):
         self.URL_OPTIONS = 'https://eodhistoricaldata.com/api/options/'
-        super().__init__(api_key, timeout)
-        
-    def get_stock_options(self, symbol:str, **query_params):
+        super().__init__(api_key, timeout, session)
+
+    def get_stock_options(self, symbol: str, **query_params):
         """
         Stock options data for top US stocks from NYSE and NASDAQ. The options
         data is updated on a daily basis, however, the API do not provide a 
@@ -33,4 +35,4 @@ class StockOptionsData(RequestHandler):
 
         """
         self.endpoint = self.URL_OPTIONS + symbol.upper()
-        return super().handle_request(self.endpoint, query_params) 
+        return super().handle_request(self.endpoint, query_params)

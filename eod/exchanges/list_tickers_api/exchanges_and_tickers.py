@@ -6,13 +6,15 @@ Created on Tue May 11 15:06:27 2021
 """
 
 from eod.request_handler_class import RequestHandler
+from requests import Session
+
 
 class ExchangesAndTickers(RequestHandler):
-    def __init__(self, api_key:str, timeout:int):
+    def __init__(self, api_key: str, timeout: int, session: Session):
         self.URL_EXCHANGES_LIST = 'https://eodhistoricaldata.com/api/exchanges-list/'
         self.URL_EXCH_SYMBOLS_LIST = 'https://eodhistoricaldata.com/api/exchange-symbol-list/'
-        super().__init__(api_key, timeout)
-        
+        super().__init__(api_key, timeout, session)
+
     def get_exchanges(self, **query_params):
         """
         Get the metadata for the available exchanges.
@@ -30,8 +32,8 @@ class ExchangesAndTickers(RequestHandler):
         """
         self.endpoint = self.URL_EXCHANGES_LIST
         return super().handle_request(self.endpoint, query_params)
-    
-    def get_exchange_symbols(self, exchange:str, **query_params):
+
+    def get_exchange_symbols(self, exchange: str, **query_params):
         """
         Get a list of symbols for an exchange.
 

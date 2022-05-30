@@ -5,14 +5,16 @@ Created on Wed May 12 10:37:42 2021
 @author: lauta
 """
 
+from requests import Session
 from eod.request_handler_class import RequestHandler
 
+
 class SearchInstrument(RequestHandler):
-    def __init__(self, api_key:str, timeout:int):
+    def __init__(self, api_key: str, timeout: int, session: Session):
         self.URL_SEARCH_INSTRUMENT = 'https://eodhistoricaldata.com/api/search/'
-        super().__init__(api_key, timeout)
-        
-    def get_search_instrument(self, query_string:str, **query_params):
+        super().__init__(api_key, timeout, session)
+
+    def get_search_instrument(self, query_string: str, **query_params):
         """
         Search Bonds, ETFs, Mutual Funds, Companies, etc by ISIN or a word.
 

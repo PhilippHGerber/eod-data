@@ -5,19 +5,21 @@ Created on Tue May 11 15:43:54 2021
 @author: lauta
 """
 
+from requests import Session
 from eod.request_handler_class import RequestHandler
 
+
 class FinancialNews(RequestHandler):
-    def __init__(self, api_key:str, timeout:int):
+    def __init__(self, api_key: str, timeout: int, session: Session):
         self.URL_FINANCIAL_NEWS = 'https://eodhistoricaldata.com/api/news'
-        super().__init__(api_key, timeout)
-        
+        super().__init__(api_key, timeout, session)
+
     def get_financial_news(self, **query_params):
         """
         Get Financial news for a specific symbol or a specific tag. Be aware
         that the required query parameters should be s (symbol to query) or
         t (financial tag), but noth both.
-        
+
         You can request the available tag with the get_financial_tags method
 
         Parameters
@@ -33,7 +35,7 @@ class FinancialNews(RequestHandler):
         """
         self.endpoint = self.URL_FINANCIAL_NEWS
         return super().handle_request(self.endpoint, query_params)
-    
+
     def get_financial_tags(self):
         """
         Get the available financial news tagss
@@ -45,7 +47,7 @@ class FinancialNews(RequestHandler):
 
         """
         tags = [
-            'balance sheet', 'capital employed', 'class action', 
+            'balance sheet', 'capital employed', 'class action',
             'company announcement', 'consensus eps estimate', 'consensus estimate',
             'credit rating', 'discounted cash flow', 'dividend payments',
             'earnings estimate', 'earnings growth', 'earnings per share',
@@ -60,9 +62,9 @@ class FinancialNews(RequestHandler):
             'quarterly results', 'ratings', 'research analysis and reports',
             'return on equity', 'revenue estimates', 'revenue growth',
             'roce', 'roe', 'share price',
-            'shareholder rights', 'shareholder', 'shares outstanding', 
+            'shareholder rights', 'shareholder', 'shares outstanding',
             'strong buy', 'total revenue', 'zacks investment research',
             'zacks rank'
-            ]
-        
+        ]
+
         return tags
