@@ -32,8 +32,7 @@ class TechnicalIndicatorsData(RequestHandler):
                 'macd':'Moving Average Convergence/Divergence',
                 'atr':'Average True Range',
                 'cci':'Commodity Channel Index',
-                'sar':'Parabolic SAR',
-                'bbands':'Bollinger Bands'
+                'sar':'Parabolic SAR'
             }
 
         
@@ -45,7 +44,7 @@ class TechnicalIndicatorsData(RequestHandler):
         ----------
         symbol : str
             name of the stock to analyse, consists of two parts: {SYMBOL_NAME}.{EXCHANGE_ID}.
-        **query_params :
+        **query_params : dict
             query parameters.
 
         Returns

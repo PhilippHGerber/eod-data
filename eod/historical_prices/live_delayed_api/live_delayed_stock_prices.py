@@ -24,7 +24,7 @@ class LiveStockPrices(RequestHandler):
         ----------
         symbol : str
             name of the stock to analyse, consists of two parts: {SYMBOL_NAME}.{EXCHANGE_ID}.
-        **query_params :
+        **query_params : dict
             query parameters.
 
         Returns
