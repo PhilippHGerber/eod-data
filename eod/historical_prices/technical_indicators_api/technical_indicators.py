@@ -17,25 +17,26 @@ class TechnicalIndicatorsData(RequestHandler):
 
         # list of available indicators
         self.ta_indicators = {
-            'splitadjusted': 'Split Adjusted Data',
-            'avgvol': 'Average Volume',
-            'avgvolccy': 'Average Volume by Price',
-            'sma': 'Simple Moving Average',
-            'ema': 'Exponential Moving Average',
-            'wma': 'Weighted Moving Average',
-            'volatility': 'Variance between returns',
-            'stochastic': 'Stochastic Technical Indicator',
-            'rsi': 'Relative Strength Index',
-            'stddev': 'Standard Deviation',
-            'stochrsi': 'Stochastic Relative Strength Index',
-            'slope': 'Linear Regression',
-            'dmi': 'Directional Movement Index',
-            'adx': 'Average Directional Movement Index',
-            'macd': 'Moving Average Convergence/Divergence',
-            'atr': 'Average True Range',
-            'cci': 'Commodity Channel Index',
-            'sar': 'Parabolic SAR'
-        }
+                'splitadjusted':'Split Adjusted Data',
+                'avgvol':'Average Volume',
+                'avgvolccy':'Average Volume by Price',
+                'sma':'Simple Moving Average',
+                'ema':'Exponential Moving Average',
+                'wma':'Weighted Moving Average',
+                'volatility':'Variance between returns',
+                'stochastic':'Stochastic Technical Indicator',
+                'rsi':'Relative Strength Index',
+                'stddev':'Standard Deviation',
+                'stochrsi':'Stochastic Relative Strength Index',
+                'slope':'Linear Regression',
+                'dmi':'Directional Movement Index',
+                'adx':'Average Directional Movement Index',
+                'macd':'Moving Average Convergence/Divergence',
+                'atr':'Average True Range',
+                'cci':'Commodity Channel Index',
+                'sar':'Parabolic SAR',
+                'bbands':'Bollinger Bands'
+            }
 
     def get_instrument_ta(self, symbol: str, **query_params):
         """
@@ -45,7 +46,7 @@ class TechnicalIndicatorsData(RequestHandler):
         ----------
         symbol : str
             name of the stock to analyse, consists of two parts: {SYMBOL_NAME}.{EXCHANGE_ID}.
-        **query_params : dict
+        **query_params :
             query parameters.
 
         Returns
