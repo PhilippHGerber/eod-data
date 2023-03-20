@@ -1,22 +1,22 @@
+import logging
 import socket
 import time
 from typing import Dict
-from urllib.parse import urlencode
 
 import requests
-from requests import Session
+from requests import Response, Session
 
 
 class RequestHandler():
-    def __init__(self, api_key: str, timeout: int, session: Session = None, max_retries: int = 3):
+    def __init__(self, api_key: str, timeout: int, session: Session | None = None, max_retries: int = 3):
         # general parameters of the api
         self.api_key = api_key
         self.timeout = timeout
-        self.resp = None
-        self.session = session
+        self.resp: Response
+        self.session: Session | None = session
         self.max_retries = max_retries
         self.rate_limit_remaining = 2000
-        self.last_request_time = 0
+        self.last_request_time = 0.0
 
     # -------------------------------------------
     # Methods for data processing
@@ -43,8 +43,13 @@ class RequestHandler():
 
         for _ in range(self.max_retries):
             try:
-                if (self.rate_limit_remaining < 10) and ((time.time() - self.last_request_time) < 60):
-                    time.sleep(60 - (time.time() - self.last_request_time))
+                elapsed_time = time.time() - self.last_request_time
+                if (self.rate_limit_remaining < 10) and (elapsed_time < 60):
+                    logging.warning(
+                        'EOD X-RateLimit-Limit: Sleeping for %.2f seconds to avoid rate limit',
+                        60.0 - elapsed_time
+                    )
+                    time.sleep(60 - elapsed_time)
 
                 if self.session is None:
                     self.resp = requests.get(url=endpoint_url, params=query_params_, timeout=self.timeout)
@@ -56,11 +61,11 @@ class RequestHandler():
                 break
 
             except socket.timeout:
-                print("URL that generated the error code: ", endpoint_url)
-                print("Error description: No response.")
+                logging.error("URL that generated the error code: ", endpoint_url)
+                logging.error("Error description: No response.")
             except socket.error:
-                print("URL that generated the error code: ", endpoint_url)
-                print("Error description: Socket error.")
+                logging.error("URL that generated the error code: ", endpoint_url)
+                logging.error("Error description: Socket error.")
 
         if self.resp.status_code == 200:
             return self.resp.json()
